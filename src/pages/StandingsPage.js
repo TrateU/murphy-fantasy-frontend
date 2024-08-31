@@ -49,10 +49,10 @@ export default function StandingsPage() {
         jData['teams'].sort((a,b) => {
             if(b.wPercentage !== a.wPercentage){
                 return b.wPercentage - a.wPercentage
-            }else if (b.wDivPercentage !== a.wDivPercentage){
-                return b.wDivPercentage - a.wDivPercentage
-            }else{
+            }else if (b.TotalFor !== a.TotalFor){
                 return b.TotalFor - a.TotalFor
+            }else{
+                return b.wDivPercentage - a.wDivPercentage
             }
         })
 

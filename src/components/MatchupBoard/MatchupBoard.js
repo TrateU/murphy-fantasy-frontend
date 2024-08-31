@@ -12,7 +12,6 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
     const [rosters, setRosters] = useState(null);
     const [teamA, setTeamA] = useState(team_format);
     const [teamB, setTeamB] = useState(team_format);
-    const [currWeek,setCurrWeek] = useState(week)
 
     const fetchData = useCallback(async () => {
         try {
@@ -27,7 +26,7 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
             const rostersJson = await rosterResponse.json();
             let weekMatchups = []
             for (let week_entry of matchupsJson['WeeklyScores']) {
-                if (week_entry['Week'] === currWeek) {
+                if (week_entry['Week'] === week) {
                     weekMatchups = week_entry['Matchups']
                 }
             }
@@ -37,14 +36,13 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
         } catch (error) {
             console.error('Fetch error:', error.message);
         }
-    }, [year, currWeek]);
+    }, [year, week]);  // Now using `week` directly
 
     useEffect(() => {
-        setCurrWeek(parseInt(week))
         fetchData();
         const intervalId = setInterval(fetchData, 60 * 1000);
         return () => clearInterval(intervalId);
-    }, [fetchData, week]);
+    }, [fetchData]);
 
     useEffect(() => {
         if (matchups && rosters) {
@@ -80,7 +78,7 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
             setTeamA(teamAData);
             setTeamB(teamBData);
         }
-    }, [matchups, rosters, match, week]);
+    }, [matchups, rosters, match]);
 
     const addPlayersToTable = useCallback((teamA, teamB) => {
         const positionOrder = ['QB', 'RB', 'WR', 'TE', 'FLEX', 'D/ST', 'K', 'Bench', 'IR'];

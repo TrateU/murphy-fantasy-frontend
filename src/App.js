@@ -29,11 +29,7 @@ export default function MyApp() {
     <Router> 
       <Navbar/>
       <Routes>
-        <Route path="/" element={
-          <div>
-            <MatchupBoard year={2023} match={0}></MatchupBoard>
-          </div>
-        }/>
+        <Route path="/"/>
         <Route path="/scores" element={<ScoresPage/>}/>
         <Route path='/matchups' element={<MatchupPage/>}/>
         <Route path='/standings' element={<StandingsPage/>}/>

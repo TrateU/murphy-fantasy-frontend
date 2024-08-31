@@ -8,10 +8,11 @@ export const Nav = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%; 
-    padding: 0 20px;
-    margin: 0; /* Ensure there's no margin that could reduce the width */
+    width: 100vw; /* Full viewport width */
+    padding: 0; /* No padding so that the background extends fully */
+    margin: 0; /* Ensure no margin is reducing the width */
     z-index: 12;
+    position: relative; /* Ensure it stays in the correct place */
 `;
 
 export const NavLink = styled(Link)`

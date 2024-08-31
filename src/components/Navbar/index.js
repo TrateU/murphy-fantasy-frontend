@@ -9,7 +9,7 @@ import {
 } from "./navbarElements";
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);

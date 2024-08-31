@@ -110,6 +110,7 @@ export default function MatchupPage() {
 
     return (
         <div>
+            &nbsp;
             <select value={yearDropdown} onChange={handleYearChange}>
                 <option value={2021}>2021</option>
                 <option value={2022}>2022</option>   
@@ -136,10 +137,12 @@ export default function MatchupPage() {
                 <option value={17}>Playoffs Week 3</option>               
             </select>
             <button onClick={setViewCurrentWeek}>Current Week</button>
+            <div>
             &ensp;
             <button onClick={updateMatchLeft}>{'<'}</button>
             <>  Matchup {currMatch + 1} of {maxMatchup}  </>
             <button onClick={updateMatchRight}>{'>'}</button>
+            </div>
             <MatchupBoard year={yearDropdown} week={weekDropdown} match={currMatch}/>
         </div>
     )

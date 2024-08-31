@@ -79,6 +79,7 @@ export default function ScoresPage(){
 
     return(
         <div>
+            &nbsp;
             <select value={yearDropdown} onChange={handleYearChange}>
                 <option value={2021}>2021</option>
                 <option value={2022}>2022</option>   

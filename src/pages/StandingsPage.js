@@ -78,6 +78,7 @@ export default function StandingsPage() {
 
     return (
         <div>
+            &nbsp;
             <select value={year} onChange={handleYearChange}>
                 <option value={2021}>2021</option>
                 <option value={2022}>2022</option>

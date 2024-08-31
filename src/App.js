@@ -29,7 +29,7 @@ export default function MyApp() {
     <Router> 
       <Navbar/>
       <Routes>
-        <Route path="/"/>
+        <Route path="/" element={<ScoresPage/>}/>
         <Route path="/scores" element={<ScoresPage/>}/>
         <Route path='/matchups' element={<MatchupPage/>}/>
         <Route path='/standings' element={<StandingsPage/>}/>

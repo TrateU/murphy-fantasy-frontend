@@ -9,10 +9,17 @@ import {
 } from "./navbarElements";
 
 const Navbar = () => {
+    const [isOpen, setIsOpen] = useState(true);
+
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
+
     return (
         <>
             <Nav>
-                <NavMenu style={{ "flex" : "none" }}>
+                <Bars onClick={toggleMenu} />
+                <NavMenu style={{ display: isOpen ? "flex" : "none" }}>
                     <NavLink to="/">
                         Home
                     </NavLink>
@@ -24,9 +31,6 @@ const Navbar = () => {
                     </NavLink>
                     <NavLink to="/standings" activeStyle>
                         Standings
-                    </NavLink>
-                    <NavLink to="/teams" activeStyle>
-                        Teams
                     </NavLink>
                 </NavMenu>
             </Nav>

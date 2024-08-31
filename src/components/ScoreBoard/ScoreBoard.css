@@ -1,0 +1,65 @@
+/* Basic reset and box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  table {
+    width: 50%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin: 20px 0;
+    
+  }
+  
+  thead {
+    background-color: #f4f4f4;
+    text-align: left;
+  }
+  
+  thead th {
+    padding: 12px;
+    border-bottom: 2px solid #ddd;
+    text-align: center;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  tbody tr:nth-child(odd) {
+    background-color: #fff;
+  }
+  
+  tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  tbody td[colspan="5"] {
+    text-align: center;
+    color: #888;
+  }
+  
+  tfoot {
+    background-color: #f4f4f4;
+  }
+  
+  tfoot td {
+    padding: 12px;
+    border-top: 2px solid #ddd;
+  }
+  
+  /* Optional: hover effect for rows */
+  tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Optional: styling for empty table cells */
+  td:empty::before {
+    content: '—';
+    color: #ddd;
+  }
+  

@@ -13,34 +13,23 @@ const Navbar = () => {
         <>
             <Nav>
                 <Bars />
-
                 <NavMenu>
-                    <NavLink to="/about" >
-                        About
+                    <NavLink to="/" >
+                        Home
                     </NavLink>
-                    <NavLink to="/events" activeStyle>
-                        Events
+                    <NavLink to="/scores" activeStyle>
+                        Score Board
                     </NavLink>
-                    <NavLink to="/annual" activeStyle>
-                        Annual Report
+                    <NavLink to="/matchups" activeStyle>
+                        Individual Matchups
                     </NavLink>
-                    <NavLink to="/team" activeStyle>
+                    <NavLink to="/standings" activeStyle>
+                        Standings
+                    </NavLink>
+                    <NavLink to="/teams" activeStyle>
                         Teams
                     </NavLink>
-                    <NavLink to="/blogs" activeStyle>
-                        Blogs
-                    </NavLink>
-                    <NavLink to="/sign-up" activeStyle>
-                        Sign Up
-                    </NavLink>
-                    {/* Second Nav */}
-                    {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
                 </NavMenu>
-                <NavBtn>
-                    <NavBtnLink to="/signin">
-                        Sign In
-                    </NavBtnLink>
-                </NavBtn>
             </Nav>
         </>
     );

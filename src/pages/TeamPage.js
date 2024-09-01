@@ -83,6 +83,11 @@ export default function TeamPage() {
             <select value={owner} onChange={handleOwnerChange}>
                 {updateOptions()}
             </select>
+            <div>
+                <h2>&nbsp;{owner}</h2>
+                <h3>&nbsp;{team.Team}</h3>
+                <p>&nbsp;{team.Division} &#40;{team.Wins} - {team.Losses}&#41;</p>
+            </div>
             <RosterBoard roster={roster}></RosterBoard>
             <ScheduleBoard schedule={schedule}></ScheduleBoard>
         </div>

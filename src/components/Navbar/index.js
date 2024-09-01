@@ -28,6 +28,9 @@ const Navbar = () => {
                     <NavLink to="/standings" activeStyle>
                         Standings
                     </NavLink>
+                    <NavLink to="/teams" activeStyle>
+                        Teams
+                    </NavLink>
                 </NavMenu>
             </Nav>
         </>

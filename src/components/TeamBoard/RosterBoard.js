@@ -68,7 +68,7 @@ export default function RosterBoard({roster = []}){
                 addPlayersToTable()
                 ) : (
                 <tr>
-                    <td colSpan="5">No data available</td>
+                    <td colSpan="6">No data available</td>
                 </tr>
             )}
             </tbody>

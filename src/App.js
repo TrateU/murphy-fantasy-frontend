@@ -12,6 +12,7 @@ import MatchupBoard from './components/MatchupBoard/MatchupBoard';
 import MatchupPage from './pages/MatchupsPage';
 import StandingsPage from './pages/StandingsPage';
 import TeamPage from './pages/TeamPage';
+import HomePage from './pages/HomePage';
 
 
 
@@ -30,7 +31,7 @@ export default function MyApp() {
     <Router> 
       <Navbar/>
       <Routes>
-        <Route path="/" element={<ScoresPage/>}/>
+        <Route path="/" element={<HomePage/>}/>
         <Route path="/scores" element={<ScoresPage/>}/>
         <Route path='/matchups' element={<MatchupPage/>}/>
         <Route path='/standings' element={<StandingsPage/>}/>

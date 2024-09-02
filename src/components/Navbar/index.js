@@ -19,6 +19,9 @@ const Navbar = () => {
         <>
             <Nav>
                 <NavMenu style={{ display: isOpen ? "flex" : "none" }}>
+                    <NavLink to="/" activeStyle>
+                        Home
+                    </NavLink>
                     <NavLink to="/scores" activeStyle>
                         Score Board
                     </NavLink>

@@ -68,7 +68,7 @@ export default function HomePage(){
             <br/>
             <br/>
             <h3>Current Scores:</h3>
-            <ScoreBoard year={currentYear} />
+            <ScoreBoard year={currentYear} week={currWeek} />
         </div>
     )
 

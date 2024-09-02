@@ -59,11 +59,11 @@ export default function HomePage(){
             <h1>Murphy Fantasy</h1>
             <br/>
             &nbsp;
-            <a href="https://fantasy.espn.com/football/league?leagueId=52278251">Jack's Football Conference</a>
+            <a href="https://fantasy.espn.com/football/league?leagueId=52278251" target="_blank">Jack's Football Conference</a>
             <br/>
             <br/>
             &nbsp;
-            <a href="https://fantasy.espn.com/football/league?leagueId=1306743362">Mary's Football Conference</a>
+            <a href="https://fantasy.espn.com/football/league?leagueId=1306743362" target="_blank">Mary's Football Conference</a>
             <br/>
             <br/>
             <br/>

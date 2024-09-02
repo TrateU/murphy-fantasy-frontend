@@ -7,9 +7,32 @@ const team_format = {
     "Roster": []
 };
 
+const weekRanges2024 = [
+    {"Week": 1, "start":"2024:8:4", "end":"2024:8:10"},
+    {"Week": 2, "start":"2024:8:11", "end":"2024:8:17"},
+    {"Week": 3, "start":"2024:8:18", "end":"2024:8:24"},
+    {"Week": 4, "start":"2024:8:25", "end":"2024:9:1"},
+    {"Week": 5, "start":"2024:9:2", "end":"2024:9:8"},
+    {"Week": 6, "start":"2024:9:9", "end":"2024:9:15"},
+    {"Week": 7, "start":"2024:9:16", "end":"2024:9:22"},
+    {"Week": 8, "start":"2024:9:23", "end":"2024:9:29"},
+    {"Week": 9, "start":"2024:9:30", "end":"2024:10:5"},
+    {"Week": 10, "start":"2024:10:6", "end":"2024:10:12"},
+    {"Week": 11, "start":"2024:10:13", "end":"2024:10:19"},
+    {"Week": 12, "start":"2024:10:20", "end":"2024:10:26"},
+    {"Week": 13, "start":"2024:10:27", "end":"2024:11:3"},
+    {"Week": 14, "start":"2024:11:4", "end":"2024:11:10"},
+    {"Week": 15, "start":"2024:11:11", "end":"2024:11:17"},
+    {"Week": 16, "start":"2024:11:18", "end":"2024:11:24"},
+    {"Week": 17, "start":"2024:11:25", "end":"2024:11:31"}
+]
+const currentYear = 2024
+
 export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
     const [matchups, setMatchups] = useState(null);
     const [rosters, setRosters] = useState(null);
+    const [currWeek, setCurrWeek] = useState(1)
+    const [weekSet, setWeekSet] = useState(0)
     const [teamA, setTeamA] = useState(team_format);
     const [teamB, setTeamB] = useState(team_format);
 
@@ -39,6 +62,35 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
     }, [year, week]);  // Now using `week` directly
 
     useEffect(() => {
+        setCurrentWeek();
+    }, [currWeek, weekSet]);
+
+    const setCurrentWeek = () => {
+        function isDateinRange(dateStr, startStr, endStr) {
+            function parseDate(dateStr) {
+                const [y, m, d] = dateStr.split(':').map(Number);
+                return new Date(y, m, d);
+            }
+            const d = parseDate(dateStr);
+            const s = parseDate(startStr);
+            const e = parseDate(endStr);
+            
+            return d >= s && d <= e;
+        }
+        const year = new Date().getFullYear();
+        const month = new Date().getMonth();
+        const day = new Date().getDate();
+
+        const date = `${year}:${month}:${day}`;
+        for (let week of weekRanges2024) {
+            if (isDateinRange(date, week['start'], week['end'])) {
+                setCurrWeek(week['Week']);
+                break;
+            }
+        }
+    }
+
+    useEffect(() => {
         fetchData();
         const intervalId = setInterval(fetchData, 60 * 1000);
         return () => clearInterval(intervalId);
@@ -65,15 +117,22 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                     teamBData.Roster = team['roster'];
                 }
             }
-            teamAData.Score = 0
             teamAData.Score = teamAData.Roster
                 .filter(player => player.position !== 'IR' && player.position !== 'Bench')
-                .reduce((total, player) => total + player.points, 0);
+                .reduce((total, player) => total + (player.points || 0), 0);
 
-            teamBData.Score = 0
+            teamAData.Projected = teamAData.Roster
+                .filter(player => player.position !== 'IR' && player.position !== 'Bench')
+                .reduce((total, player) => total + (player.projPoints || 0), 0);
+
+
             teamBData.Score = teamBData.Roster
                 .filter(player => player.position !== 'IR' && player.position !== 'Bench')
-                .reduce((total, player) => total + player.points, 0);
+                .reduce((total, player) => total + (player.points || 0), 0);
+
+            teamBData.Projected = teamBData.Roster
+                .filter(player => player.position !== 'IR' && player.position !== 'Bench')
+                .reduce((total, player) => total + (player.projPoints || 0), 0);
 
             setTeamA(teamAData);
             setTeamB(teamBData);
@@ -83,30 +142,69 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
     const addPlayersToTable = useCallback((teamA, teamB) => {
         const positionOrder = ['QB', 'RB', 'WR', 'TE', 'FLEX', 'D/ST', 'K', 'Bench', 'IR'];
         const rows = [];
-
+    
         positionOrder.forEach((position, index) => {
             const playersA = teamA['Roster'].filter(player => player.position === position);
             const playersB = teamB['Roster'].filter(player => player.position === position);
             const maxLength = Math.max(playersA.length, playersB.length);
-
+    
             for (let i = 0; i < maxLength; i++) {
                 const playerA = playersA[i] || null;
                 const playerB = playersB[i] || null;
-
-                rows.push(
-                    <tr key={`${index}-${i}-${playerA?.name || 'emptyA'}-${playerB?.name || 'emptyB'}`}>
-                        <td>{playerA?.position || ''}</td>
-                        <td>{playerA?.name || ''}</td>
-                        <td>{playerA ? playerA.points.toFixed(2) : ''}</td>
-                        <td></td> {/* Separator column */}
-                        <td>{playerB ? playerB.points.toFixed(2) : ''}</td>
-                        <td>{playerB?.name || ''}</td>
-                        <td>{playerB?.position || ''}</td>
-                    </tr>
-                );
+    
+                const playerAProjPoints = playerA?.projPoints !== undefined ? playerA.projPoints.toFixed(2) : '';
+                const playerAPoints = playerA?.points !== undefined ? playerA.points.toFixed(2) : '';
+                const playerBProjPoints = playerB?.projPoints !== undefined ? playerB.projPoints.toFixed(2) : '';
+                const playerBPoints = playerB?.points !== undefined ? playerB.points.toFixed(2) : '';
+    
+                if (currWeek === week) {
+                    rows.push(
+                        <tr key={`${index}-${i}-${playerA?.name || 'emptyA'}-${playerB?.name || 'emptyB'}`}>
+                            <td>{playerA?.position || ''}</td>
+                            <td>{playerA?.name || ''}</td>
+                            <td>{playerAProjPoints}</td>
+                            <td>{playerAPoints}</td>
+                            <td/>
+                            <td>{playerBPoints}</td>
+                            <td>{playerBProjPoints}</td>
+                            <td>{playerB?.name || ''}</td>
+                            <td>{playerB?.position || ''}</td>
+                        </tr>
+                    );
+                } else {
+                    rows.push(
+                        <tr key={`${index}-${i}-${playerA?.name || 'emptyA'}-${playerB?.name || 'emptyB'}`}>
+                            <td>{playerA?.position || ''}</td>
+                            <td>{playerA?.name || ''}</td>
+                            <td>{playerAPoints}</td>
+                            <td></td> {/* Separator column */}
+                            <td>{playerBPoints}</td>
+                            <td>{playerB?.name || ''}</td>
+                            <td>{playerB?.position || ''}</td>
+                        </tr>
+                    );
+                }
             }
-
-            if (position === 'K') {
+    
+            if (position === 'K' && currWeek === week) {
+                rows.push(
+                    <>
+                    <tr key={`total-projected-${position}`}>
+                        <td colSpan={2}> Projected Total</td>
+                        <td>{teamA.Projected?.toFixed(2) || '0.00'}</td>
+                        <td colSpan={3}/>
+                        <td>{teamB.Projected?.toFixed(2) || '0.00'}</td>
+                        <td colSpan={2}> Projected Total</td>
+                    </tr>
+                    <tr key={`separator-${position}`}>
+                        <td colSpan="9" style={{ backgroundColor: '#d3d3d3', height: '4px', padding: '0' }}>
+                            <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '0.85em', lineHeight: '1.5em' }}>
+                            </div>
+                        </td>
+                    </tr>
+                    </>
+                );
+            } else if(position === 'K') {
                 rows.push(
                     <tr key={`separator-${position}`}>
                         <td colSpan="7" style={{ backgroundColor: '#d3d3d3', height: '4px', padding: '0' }}>
@@ -117,13 +215,34 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                 );
             }
         });
-
+    
         return rows;
-    }, []);
+    }, [currWeek, week]);
+    
 
     return (
         <table>
             <thead>
+                {currWeek === week ? (
+                <>
+                <tr>
+                    <th colSpan="5">{teamA['Name']}</th>
+                    <th />
+                    <th colSpan="5">{teamB['Name']}</th>
+                </tr>
+                <tr>
+                    <th colSpan="5">{teamA['Team']}</th>
+                    <th />
+                    <th colSpan="5">{teamB['Team']}</th>
+                </tr>
+                <tr>
+                    <th colSpan="5">{teamA['Score'].toFixed(2)}</th>
+                    <th />
+                    <th colSpan="5">{(teamB['Score'] || 0).toFixed(2)}</th>
+                </tr>
+                </>
+                ):(
+                <>
                 <tr>
                     <th colSpan="3">{teamA['Name']}</th>
                     <th />
@@ -135,16 +254,28 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                     <th colSpan="3">{teamB['Team']}</th>
                 </tr>
                 <tr>
-                    <th colSpan="3">{teamA['Score'].toFixed(2)}</th>
+                    <th colSpan="3">{(teamA['Score'] || 0).toFixed(2)}</th>
                     <th />
-                    <th colSpan="3">{teamB['Score'].toFixed(2)}</th>
+                    <th colSpan="3">{(teamB['Score'] || 0).toFixed(2)}</th>
                 </tr>
+                </>
+                )}
                 <tr>
                     <th>Pos</th>
                     <th>Player</th>
+                    {currWeek === week ? (
+                        <th>Proj</th>
+                    ):(
+                        <></>
+                    )}
                     <th>Pts</th>
                     <th />
                     <th>Pts</th>
+                    {currWeek === week ? (
+                        <th>Proj</th>
+                    ):(
+                        <></>
+                    )}
                     <th>Player</th>
                     <th>Pos</th>
                 </tr>

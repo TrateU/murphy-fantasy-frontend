@@ -111,28 +111,16 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                 if (team['Name'] === teamAData.Name) {
                     teamAData.Team = team['Team'];
                     teamAData.Roster = team['roster'];
+                    teamAData.Score = team['totalPoints']
+                    teamAData.Projected = team['projPoints']
                 }
                 if (team['Name'] === teamBData.Name) {
                     teamBData.Team = team['Team'];
                     teamBData.Roster = team['roster'];
+                    teamBData.Score = team['totalPoints']
+                    teamBData.Projected = team['projPoints']
                 }
             }
-            teamAData.Score = teamAData.Roster
-                .filter(player => player.position !== 'IR' && player.position !== 'Bench')
-                .reduce((total, player) => total + (player.points || 0), 0);
-
-            teamAData.Projected = teamAData.Roster
-                .filter(player => player.position !== 'IR' && player.position !== 'Bench')
-                .reduce((total, player) => total + (player.projPoints || 0), 0);
-
-
-            teamBData.Score = teamBData.Roster
-                .filter(player => player.position !== 'IR' && player.position !== 'Bench')
-                .reduce((total, player) => total + (player.points || 0), 0);
-
-            teamBData.Projected = teamBData.Roster
-                .filter(player => player.position !== 'IR' && player.position !== 'Bench')
-                .reduce((total, player) => total + (player.projPoints || 0), 0);
 
             setTeamA(teamAData);
             setTeamB(teamBData);

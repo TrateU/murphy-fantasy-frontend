@@ -105,9 +105,9 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
           matchups.map((game) => (
             <tr key={game.teamA}>
               <td>{game.teamA}</td>
-              <td>{game.scoreA || '0'}</td>
+              <td>{game.scoreA.toFixed(2) || '0'}</td>
               <td>-</td>
-              <td>{game.scoreB || '0'}</td>
+              <td>{game.scoreB.toFixed(2) || '0'}</td>
               <td>{game.teamB}</td>
             </tr>
           ))

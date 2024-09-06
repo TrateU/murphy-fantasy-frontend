@@ -6,21 +6,25 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
   const [matchups, setMatchups] = useState([]);
   const [scores, setScores] = useState([]);
   const [currWeek, setCurrWeek] = useState(week);
+  const [rosters, setRosters] = useState(null)
 
 
-  const getScores = useCallback(async (year) => {
+  const getScores = useCallback(async () => {
     const url = `https://fantasy-backend-2b7122cce8cf.herokuapp.com/scores/${year}`;
     try {
       const response = await fetch(url);
-      if (!response.ok) {
+      const rosterResponse = await fetch(`https://fantasy-backend-2b7122cce8cf.herokuapp.com/matchups/${year}/${week}`);
+      if (!response.ok || !rosterResponse.ok) {
         throw new Error(`Response status: ${response.status}`);
       }
       const json = await response.json();
+      const rosterJson = await rosterResponse.json()
+      setRosters(rosterJson)
       return json;
     } catch (error) {
       console.error('Fetch error:', error.message);
     }
-  }, []);
+  }, [year,week]);
 
   const updateScoresAndMatchups = useCallback((data, week) => {
     let updatedMatchups = [];
@@ -30,7 +34,7 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
     
     for (let week_entry of data['WeeklyScores']) {
       if (week_entry['Week'] === week) {
-        updatedScores = week_entry['Scores'];
+        updatedScores = rosters['teams'];
         updatedMatchups = week_entry['Matchups'];
 
         for (let game of updatedMatchups) {
@@ -40,11 +44,11 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
           }
           for (let team of updatedScores) {
             if (team['Name'] === game['teamA']) {
-              game['scoreA'] = team['Score'];
+              game['scoreA'] = team['totalPoints'];
               continue;
             }
             if (team['Name'] === game['teamB']) {
-              game['scoreB'] = team['Score'];
+              game['scoreB'] = team['totalPoints'];
               continue;
             }
           }
@@ -56,7 +60,9 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
 
     setMatchups(updatedMatchups);
     setScores(updatedScores);
-  }, []);
+  }, [rosters]);
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -99,9 +105,9 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
           matchups.map((game) => (
             <tr key={game.teamA}>
               <td>{game.teamA}</td>
-              <td>{game.scoreA || '-'}</td>
+              <td>{game.scoreA || '0'}</td>
               <td>-</td>
-              <td>{game.scoreB || '-'}</td>
+              <td>{game.scoreB || '0'}</td>
               <td>{game.teamB}</td>
             </tr>
           ))

@@ -155,11 +155,11 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
         ) : (
           <tr>
             <th>Team</th>
-            <th>IP/TP/DP</th>
+            <th>TP/IP/DP</th>
             <th>Points</th>
             <th />
             <th>Points</th>
-            <th>IP/TP/DP</th>
+            <th>TP/IP/DP</th>
             <th>Team</th>
           </tr>
         )}
@@ -171,11 +171,11 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
               {currWeek === actWeek ? (
                 <>
                   <td>{game.teamA}</td>
-                  <td>{game.inA} / {game.leftA} / {game.doneA}</td>
+                  <td>{game.leftA} / {game.inA} / {game.doneA}</td>
                   <td>{game.scoreA.toFixed(2) || '0'}</td>
                   <td>-</td>
                   <td>{game.scoreB.toFixed(2) || '0'}</td>
-                  <td>{game.inB} / {game.leftB} / {game.doneB}</td>
+                  <td>{game.leftB} / {game.inB} / {game.doneB}</td>
                   <td>{game.teamB}</td>
                 </>
               ) : (
@@ -198,8 +198,8 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
     </table>
     {currWeek === actWeek ? (
       <p>
-      * IP = Players in play <br/>
       * TP = Players left to play <br/>
+      * IP = Players in play <br/>
       * DP = Players done playing <br/>
     </p>
     ):(

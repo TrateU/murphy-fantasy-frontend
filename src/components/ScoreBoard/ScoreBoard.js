@@ -166,11 +166,11 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
               {currWeek === actWeek ? (
                 <>
                   <td>{game.teamA}</td>
-                  <td>{game.leftA / 9 || '0'}</td>
+                  <td>{game.leftA || '0'} / 9</td>
                   <td>{game.scoreA.toFixed(2) || '0'}</td>
                   <td>-</td>
                   <td>{game.scoreB.toFixed(2) || '0'}</td>
-                  <td>{game.leftB / 9 || '0'}</td>
+                  <td>{game.leftB || '0'} / 9 </td>
                   <td>{game.teamB}</td>
                 </>
               ) : (

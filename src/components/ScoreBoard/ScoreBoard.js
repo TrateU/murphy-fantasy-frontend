@@ -65,12 +65,16 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
           for (let team of updatedScores) {
             if (team['Name'] === game['teamA']) {
               game['scoreA'] = team['totalPoints'];
+              game['inA'] = team['inPlay']
               game['leftA'] = team['leftToPlay'];
+              game['doneA'] = team['donePlay']
               continue;
             }
             if (team['Name'] === game['teamB']) {
               game['scoreB'] = team['totalPoints'];
+              game['inB'] = team['inPlay']
               game['leftB'] = team['leftToPlay'];
+              game['doneB'] = team['donePlay']
               continue;
             }
           }
@@ -137,6 +141,7 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
   }, [currWeek, rawData, updateScoresAndMatchups, actWeek]); // Ensure actWeek re-renders
 
   return (
+    <div>
     <table>
       <thead>
         {currWeek !== actWeek ? (
@@ -150,11 +155,11 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
         ) : (
           <tr>
             <th>Team</th>
-            <th>Played / In Play</th>
+            <th>IP/TP/DP</th>
             <th>Points</th>
             <th />
             <th>Points</th>
-            <th>Played / In Play</th>
+            <th>IP/TP/DP</th>
             <th>Team</th>
           </tr>
         )}
@@ -166,11 +171,11 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
               {currWeek === actWeek ? (
                 <>
                   <td>{game.teamA}</td>
-                  <td>{game.leftA || '0'} / 9</td>
+                  <td>{game.inA} / {game.leftA} / {game.doneA}</td>
                   <td>{game.scoreA.toFixed(2) || '0'}</td>
                   <td>-</td>
                   <td>{game.scoreB.toFixed(2) || '0'}</td>
-                  <td>{game.leftB || '0'} / 9 </td>
+                  <td>{game.inB} / {game.leftB} / {game.doneB}</td>
                   <td>{game.teamB}</td>
                 </>
               ) : (
@@ -191,5 +196,15 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
         )}
       </tbody>
     </table>
+    {currWeek === actWeek ? (
+      <p>
+      * IP = Players in play <br/>
+      * TP = Players left to play <br/>
+      * DP = Players done playing <br/>
+    </p>
+    ):(
+      <></>
+    )}
+    </div>
   );
 }

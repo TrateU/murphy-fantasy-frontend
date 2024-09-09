@@ -149,18 +149,18 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                     rows.push(
                         <tr key={`${index}-${i}-${playerA?.name || 'emptyA'}-${playerB?.name || 'emptyB'}`}>
                             <td>{playerA?.position || ''}</td>
-                            <td>{playerA?.name || ''}
+                            <td style={{ whiteSpace: 'nowrap'}}>{playerA?.name || ''}
                                 <br/>
                                 {playerA?.proTeamAbbrev} 
                                 <br/>
                                 {playerB?.startTime} 
                             </td>
                             <td>{playerAProjPoints}</td>
-                            <td>{playerAPoints}</td>
+                            {playerA?.isFinal ? (<td style={{fontWeight: "bold"}}>{playerAPoints}</td>):(<td>{playerAPoints}</td>)} 
                             <td/>
-                            <td>{playerBPoints}</td>
+                            {playerB?.isFinal ? (<td style={{fontWeight: "bold"}}>{playerBPoints}</td>):(<td>{playerBPoints}</td>)} 
                             <td>{playerBProjPoints}</td>
-                            <td>{playerB?.name || ''}
+                            <td style={{ whiteSpace: 'nowrap'}}>{playerB?.name || ''}
                                 <br/>
                                 {playerB?.proTeamAbbrev}
                                 <br/>
@@ -173,7 +173,7 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                     rows.push(
                         <tr key={`${index}-${i}-${playerA?.name || 'emptyA'}-${playerB?.name || 'emptyB'}`}>
                             <td>{playerA?.position || ''}</td>
-                            <td>{playerA?.name || ''}
+                            <td style={{ whiteSpace: 'nowrap'}}>{playerA?.name || ''}
                                 <br/>
                                 {playerA?.proTeamAbbrev} 
                                 <br/>
@@ -182,7 +182,7 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                             <td>{playerAPoints}</td>
                             <td></td> {/* Separator column */}
                             <td>{playerBPoints}</td>
-                            <td>{playerB?.name || ''}
+                            <td style={{ whiteSpace: 'nowrap'}}>{playerB?.name || ''}
                                 <br/>
                                 {playerB?.proTeamAbbrev}
                                 <br/>
@@ -197,12 +197,14 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
             if (position === 'K' && currWeek === week) {
                 rows.push(
                     <>
-                    <tr key={`total-projected-${position}`}>
-                        <td colSpan={2}> Projected Total</td>
-                        <td>{teamA.Projected?.toFixed(2) || '0.00'}</td>
-                        <td colSpan={3}/>
-                        <td>{teamB.Projected?.toFixed(2) || '0.00'}</td>
-                        <td colSpan={2}> Projected Total</td>
+                    <tr style={{fontWeight: "bold"}} key={`total-projected-${position}`}>
+                        <td colSpan={2}>Totals</td>
+                        <td style={{fontWeight: "normal"}}>{teamA.Projected?.toFixed(2) || '0.00'}</td>
+                        <td style={{fontSize: '1.2em'}}>{teamA.Score?.toFixed(2) || '0.00'}</td>
+                        <td colSpan={1}/>
+                        <td style={{fontSize: '1.2em'}}>{teamB.Score?.toFixed(2) || '0.00'}</td>
+                        <td style={{fontWeight: "normal"}}>{teamB.Projected?.toFixed(2) || '0.00'}</td>
+                        <td colSpan={2}>Totals</td>
                     </tr>
                     <tr key={`separator-${position}`}>
                         <td colSpan="9" style={{ backgroundColor: '#d3d3d3', height: '4px', padding: '0' }}>

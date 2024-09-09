@@ -20,6 +20,7 @@ const weekRanges2024 = [
   {"Week": 16, "start":"2024:11:18", "end":"2024:11:24"},
   {"Week": 17, "start":"2024:11:25", "end":"2024:11:31"}
 ]
+const actualYear = 2024
 
 export default function ScoreBoard({ year = 2021, week = 2 }) {
   const [rawData, setRawData] = useState(null);
@@ -88,6 +89,10 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
   }, [rosters]);
 
   const setCurrentWeek = useCallback(() => {
+    if(year !== actualYear){
+      setActWeek(0)
+      return
+    }
     function isDateinRange(dateStr, startStr, endStr) {
       function parseDate(dateStr) {
         const [y, m, d] = dateStr.split(':').map(Number);
@@ -109,11 +114,13 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
         break;
       }
     }
-  }, []);
+  }, [year]);
 
   useEffect(() => {
-    setCurrentWeek();
-  }, [setCurrentWeek]);
+    if(year === actualYear){
+      setCurrentWeek(); 
+    }
+  }, [year,setCurrentWeek]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -131,7 +138,9 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
 
   useEffect(() => {
     setCurrWeek(week);
-    setCurrentWeek()
+    if(year === actualYear){
+      setCurrentWeek(); 
+    }
   }, [week, setCurrentWeek]);
 
   useEffect(() => {
@@ -188,7 +197,7 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
                     <td>{game.teamA}</td>
                     <td
                       className={
-                        isNotCurrentWeek && !scoresAreEqual
+                        isNotCurrentWeek && game.leftA === 0 && game.leftB === 0 && !scoresAreEqual
                           ? teamAHasHigherScore
                             ? 'green-bg'
                             : 'red-bg'
@@ -200,7 +209,7 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
                     <td>-</td>
                     <td
                       className={
-                        isNotCurrentWeek && !scoresAreEqual
+                        isNotCurrentWeek && game.leftA === 0 && game.leftB === 0 && !scoresAreEqual
                           ? teamAHasHigherScore
                             ? 'red-bg'
                             : 'green-bg'

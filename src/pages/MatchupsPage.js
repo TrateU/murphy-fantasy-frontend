@@ -143,7 +143,7 @@ export default function MatchupPage() {
             <>  Matchup {currMatch + 1} of {maxMatchup}  </>
             <button onClick={updateMatchRight}>{'>'}</button>
             </div>
-            <MatchupBoard year={yearDropdown} week={weekDropdown} match={currMatch}/>
+            <MatchupBoard year={parseInt(yearDropdown)} week={parseInt(weekDropdown)} match={parseInt(currMatch)}/>
         </div>
     )
 }

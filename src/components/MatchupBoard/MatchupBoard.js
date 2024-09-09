@@ -145,7 +145,7 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                 const playerBProjPoints = playerB?.projPoints !== undefined ? playerB.projPoints.toFixed(2) : '';
                 const playerBPoints = playerB?.points !== undefined ? playerB.points.toFixed(2) : '';
     
-                if (currWeek === week) {
+                if (currWeek === week && year === currentYear) {
                     rows.push(
                         <tr key={`${index}-${i}-${playerA?.name || 'emptyA'}-${playerB?.name || 'emptyB'}`}>
                             <td>{playerA?.position || ''}</td>
@@ -194,7 +194,7 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                 }
             }
     
-            if (position === 'K' && currWeek === week) {
+            if (position === 'K' && currWeek === week && currentYear === year) {
                 rows.push(
                     <>
                     <tr style={{fontWeight: "bold"}} key={`total-projected-${position}`}>
@@ -227,28 +227,28 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
         });
     
         return rows;
-    }, [currWeek, week]);
+    }, [currWeek, week, year]);
     
 
     return (
         <table>
             <thead>
-                {currWeek === week ? (
+                {currWeek === week && year === currentYear ? (
                 <>
                 <tr>
-                    <th colSpan="5">{teamA['Name']}</th>
-                    <th />
-                    <th colSpan="5">{teamB['Name']}</th>
+                    <th colSpan="3">{teamA['Name']}</th>
+                    <th colSpan="3" />
+                    <th colSpan="3">{teamB['Name']}</th>
                 </tr>
                 <tr>
-                    <th colSpan="5">{teamA['Team']}</th>
-                    <th />
-                    <th colSpan="5">{teamB['Team']}</th>
+                    <th colSpan="3">{teamA['Team']}</th>
+                    <th colSpan="3" />
+                    <th colSpan="3">{teamB['Team']}</th>
                 </tr>
                 <tr>
-                    <th colSpan="5">{teamA['Score'].toFixed(2)}</th>
-                    <th />
-                    <th colSpan="5">{(teamB['Score'] || 0).toFixed(2)}</th>
+                    <th colSpan="3">{teamA['Score'].toFixed(2)}</th>
+                    <th colSpan="3" />
+                    <th colSpan="3">{(teamB['Score'] || 0).toFixed(2)}</th>
                 </tr>
                 </>
                 ):(
@@ -273,7 +273,7 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                 <tr>
                     <th>Pos</th>
                     <th>Player</th>
-                    {currWeek === week ? (
+                    {currWeek === week && currentYear === year ? (
                         <th>Proj</th>
                     ):(
                         <></>
@@ -281,7 +281,7 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                     <th>Pts</th>
                     <th />
                     <th>Pts</th>
-                    {currWeek === week ? (
+                    {currWeek === week && currentYear === year ? (
                         <th>Proj</th>
                     ):(
                         <></>

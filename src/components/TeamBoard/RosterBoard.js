@@ -18,7 +18,7 @@ export default function RosterBoard({roster = []}){
                 rows.push(
                     <tr key={`${index}-${i}-${playerA?.name || 'emptyA'}`}>
                         <td>{playerA?.slot || ''}</td>
-                        <td style={{width: '350px'}}>
+                        <td style={{whiteSpace: 'nowrap'}}>
                             {`${playerA?.name}`|| ''}
                             <br/>
                             {playerA?.team} - {playerA?.position}

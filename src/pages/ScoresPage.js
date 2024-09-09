@@ -107,7 +107,7 @@ export default function ScoresPage(){
                 
             </select>
             <button onClick={setViewCurrentWeek}>Current Week</button>
-            <ScoreBoard year={yearDropdown} week={weekDropdown}/>
+            <ScoreBoard year={parseInt(yearDropdown)} week={parseInt(weekDropdown)}/>
         </div>
     )
 

@@ -22,12 +22,16 @@ const weekRanges2024 = [
 ]
 const actualYear = 2024
 
+const defaultData = {
+  "WeeklyScores": []
+}
+
 export default function ScoreBoard({ year = 2021, week = 2 }) {
   const [rawData, setRawData] = useState(null);
   const [matchups, setMatchups] = useState([]);
   const [scores, setScores] = useState([]);
   const [actWeek, setActWeek] = useState(0);
-  const [currWeek, setCurrWeek] = useState(week);
+  const [currWeek, setCurrWeek] = useState(parseInt(week));
   const [rosters, setRosters] = useState(null);
 
   const getScores = useCallback(async () => {
@@ -44,15 +48,17 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
       return json;
     } catch (error) {
       console.error('Fetch error:', error.message);
+      return defaultData
     }
   }, [year, week]);
 
   const updateScoresAndMatchups = useCallback((data, week) => {
+    console.log(week)
     let updatedMatchups = [];
     let updatedScores = [];
     setMatchups([]);
     week = parseInt(week, 10); // Ensure week is a number
-    
+
     for (let week_entry of data['WeeklyScores']) {
       if (week_entry['Week'] === week) {
         updatedScores = rosters['teams'];
@@ -153,7 +159,7 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
     <div>
       <table>
         <thead>
-          {currWeek !== actWeek ? (
+          {currWeek !== actWeek || year !== actualYear ? (
             <tr>
               <th>Team</th>
               <th>Points</th>
@@ -177,12 +183,13 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
         {matchups.length > 0 ? (
           matchups.map((game) => {
             const isNotCurrentWeek = currWeek !== actWeek;
+            const isNotCurrentYear = year !== actualYear
             const teamAHasHigherScore = game.scoreA > game.scoreB;
             const scoresAreEqual = game.scoreA === game.scoreB;
 
             return (
               <tr key={game.teamA}>
-                {currWeek === actWeek ? (
+                {currWeek === actWeek && !isNotCurrentYear ? (
                   <>
                     <td>{game.teamA}</td>
                     <td>{game.leftA} / {game.inA} / {game.doneA}</td>
@@ -197,7 +204,7 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
                     <td>{game.teamA}</td>
                     <td
                       className={
-                        isNotCurrentWeek && game.leftA === 0 && game.leftB === 0 && !scoresAreEqual
+                        isNotCurrentWeek && game.leftA === 0 && game.leftB === 0 && !scoresAreEqual || isNotCurrentYear
                           ? teamAHasHigherScore
                             ? 'green-bg'
                             : 'red-bg'
@@ -209,7 +216,7 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
                     <td>-</td>
                     <td
                       className={
-                        isNotCurrentWeek && game.leftA === 0 && game.leftB === 0 && !scoresAreEqual
+                        isNotCurrentWeek && game.leftA === 0 && game.leftB === 0 && !scoresAreEqual || isNotCurrentYear
                           ? teamAHasHigherScore
                             ? 'red-bg'
                             : 'green-bg'
@@ -231,7 +238,7 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
         )}
       </tbody>
       </table>
-      {currWeek === actWeek ? (
+      {currWeek === actWeek && year === actualYear ? (
         <p>
           * TP = Players left to play <br />
           * IP = Players in play <br />

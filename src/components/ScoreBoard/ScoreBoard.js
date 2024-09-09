@@ -142,69 +142,95 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
 
   return (
     <div>
-    <table>
-      <thead>
-        {currWeek !== actWeek ? (
-          <tr>
-            <th>Team</th>
-            <th>Points</th>
-            <th />
-            <th>Points</th>
-            <th>Team</th>
-          </tr>
-        ) : (
-          <tr>
-            <th>Team</th>
-            <th>TP/IP/DP</th>
-            <th>Points</th>
-            <th />
-            <th>Points</th>
-            <th>TP/IP/DP</th>
-            <th>Team</th>
-          </tr>
-        )}
-      </thead>
-      <tbody>
-        {matchups.length > 0 ? (
-          matchups.map((game) => (
-            <tr key={game.teamA}>
-              {currWeek === actWeek ? (
-                <>
-                  <td>{game.teamA}</td>
-                  <td>{game.leftA} / {game.inA} / {game.doneA}</td>
-                  <td>{game.scoreA.toFixed(2) || '0'}</td>
-                  <td>-</td>
-                  <td>{game.scoreB.toFixed(2) || '0'}</td>
-                  <td>{game.leftB} / {game.inB} / {game.doneB}</td>
-                  <td>{game.teamB}</td>
-                </>
-              ) : (
-                <>
-                  <td>{game.teamA}</td>
-                  <td>{game.scoreA.toFixed(2) || '0'}</td>
-                  <td>-</td>
-                  <td>{game.scoreB.toFixed(2) || '0'}</td>
-                  <td>{game.teamB}</td>
-                </>
-              )}
+      <table>
+        <thead>
+          {currWeek !== actWeek ? (
+            <tr>
+              <th>Team</th>
+              <th>Points</th>
+              <th />
+              <th>Points</th>
+              <th>Team</th>
             </tr>
-          ))
+          ) : (
+            <tr>
+              <th>Team</th>
+              <th>TP/IP/DP</th>
+              <th>Points</th>
+              <th />
+              <th>Points</th>
+              <th>TP/IP/DP</th>
+              <th>Team</th>
+            </tr>
+          )}
+        </thead>
+        <tbody>
+        {matchups.length > 0 ? (
+          matchups.map((game) => {
+            const isNotCurrentWeek = currWeek !== actWeek;
+            const teamAHasHigherScore = game.scoreA > game.scoreB;
+            const scoresAreEqual = game.scoreA === game.scoreB;
+
+            return (
+              <tr key={game.teamA}>
+                {currWeek === actWeek ? (
+                  <>
+                    <td>{game.teamA}</td>
+                    <td>{game.leftA} / {game.inA} / {game.doneA}</td>
+                    <td>{game.scoreA.toFixed(2) || '0'}</td>
+                    <td>-</td>
+                    <td>{game.scoreB.toFixed(2) || '0'}</td>
+                    <td>{game.leftB} / {game.inB} / {game.doneB}</td>
+                    <td>{game.teamB}</td>
+                  </>
+                ) : (
+                  <>
+                    <td>{game.teamA}</td>
+                    <td
+                      className={
+                        isNotCurrentWeek && !scoresAreEqual
+                          ? teamAHasHigherScore
+                            ? 'green-bg'
+                            : 'red-bg'
+                          : '' // Explicitly reset class when it's the current week
+                      }
+                    >
+                      {game.scoreA.toFixed(2) || '0'}
+                    </td>
+                    <td>-</td>
+                    <td
+                      className={
+                        isNotCurrentWeek && !scoresAreEqual
+                          ? teamAHasHigherScore
+                            ? 'red-bg'
+                            : 'green-bg'
+                          : '' // Explicitly reset class when it's the current week
+                      }
+                    >
+                      {game.scoreB.toFixed(2) || '0'}
+                    </td>
+                    <td>{game.teamB}</td>
+                  </>
+                )}
+              </tr>
+            );
+          })
         ) : (
           <tr>
             <td colSpan={currWeek === actWeek ? "7" : "5"}>No data available</td>
           </tr>
         )}
       </tbody>
-    </table>
-    {currWeek === actWeek ? (
-      <p>
-      * TP = Players left to play <br/>
-      * IP = Players in play <br/>
-      * DP = Players done playing <br/>
-    </p>
-    ):(
-      <></>
-    )}
+      </table>
+      {currWeek === actWeek ? (
+        <p>
+          * TP = Players left to play <br />
+          * IP = Players in play <br />
+          * DP = Players done playing <br />
+        </p>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

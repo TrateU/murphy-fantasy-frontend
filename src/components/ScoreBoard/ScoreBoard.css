@@ -62,4 +62,12 @@
     content: '—';
     color: #ddd;
   }
+
+  .green-bg {
+    background-color: rgb(153, 231, 153);
+
+  }
+  .red-bg {
+    background-color: rgb(248, 162, 162);
+  }
   

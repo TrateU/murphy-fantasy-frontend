@@ -149,13 +149,23 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                     rows.push(
                         <tr key={`${index}-${i}-${playerA?.name || 'emptyA'}-${playerB?.name || 'emptyB'}`}>
                             <td>{playerA?.position || ''}</td>
-                            <td>{playerA?.name || ''}</td>
+                            <td>{playerA?.name || ''}
+                                <br/>
+                                {playerA?.proTeamAbbrev} 
+                                <br/>
+                                {playerB?.startTime} 
+                            </td>
                             <td>{playerAProjPoints}</td>
                             <td>{playerAPoints}</td>
                             <td/>
                             <td>{playerBPoints}</td>
                             <td>{playerBProjPoints}</td>
-                            <td>{playerB?.name || ''}</td>
+                            <td>{playerB?.name || ''}
+                                <br/>
+                                {playerB?.proTeamAbbrev}
+                                <br/>
+                                {playerB?.startTime}
+                            </td>
                             <td>{playerB?.position || ''}</td>
                         </tr>
                     );
@@ -163,11 +173,21 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                     rows.push(
                         <tr key={`${index}-${i}-${playerA?.name || 'emptyA'}-${playerB?.name || 'emptyB'}`}>
                             <td>{playerA?.position || ''}</td>
-                            <td>{playerA?.name || ''}</td>
+                            <td>{playerA?.name || ''}
+                                <br/>
+                                {playerA?.proTeamAbbrev} 
+                                <br/>
+                                {playerB?.startTime} 
+                            </td>
                             <td>{playerAPoints}</td>
                             <td></td> {/* Separator column */}
                             <td>{playerBPoints}</td>
-                            <td>{playerB?.name || ''}</td>
+                            <td>{playerB?.name || ''}
+                                <br/>
+                                {playerB?.proTeamAbbrev}
+                                <br/>
+                                {playerB?.startTime}
+                            </td>
                             <td>{playerB?.position || ''}</td>
                         </tr>
                     );

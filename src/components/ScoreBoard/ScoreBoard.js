@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { redirect, useNavigate } from 'react-router-dom';
 import './ScoreBoard.css';
 
 const weekRanges2024 = [
@@ -33,6 +34,7 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
   const [actWeek, setActWeek] = useState(0);
   const [currWeek, setCurrWeek] = useState(parseInt(week));
   const [rosters, setRosters] = useState(null);
+  const navigate = useNavigate()
 
   const getScores = useCallback(async () => {
     const url = `https://fantasy-backend-2b7122cce8cf.herokuapp.com/scores/${year}`;
@@ -53,7 +55,6 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
   }, [year, week]);
 
   const updateScoresAndMatchups = useCallback((data, week) => {
-    console.log(week)
     let updatedMatchups = [];
     let updatedScores = [];
     setMatchups([]);
@@ -122,6 +123,11 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
     }
   }, [year]);
 
+  const handleRowClick = useCallback((rowData) =>{
+    console.log(rowData)
+    navigate(`/matchups/${rowData.year}/${rowData.week}/${rowData.match}`)
+  })
+
   useEffect(() => {
     if(year === actualYear){
       setCurrentWeek(); 
@@ -181,14 +187,15 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
         </thead>
         <tbody>
         {matchups.length > 0 ? (
-          matchups.map((game) => {
+          matchups.map((game,index) => {
             const isNotCurrentWeek = currWeek !== actWeek;
             const isNotCurrentYear = year !== actualYear
             const teamAHasHigherScore = game.scoreA > game.scoreB;
             const scoresAreEqual = game.scoreA === game.scoreB;
 
             return (
-              <tr key={game.teamA}>
+              
+              <tr key={game.teamA} onClick={() => handleRowClick({"match":index, "week":week, "year":year})}>
                 {currWeek === actWeek && !isNotCurrentYear ? (
                   <>
                     <td>{game.teamA}</td>
@@ -229,6 +236,7 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
                   </>
                 )}
               </tr>
+              
             );
           })
         ) : (

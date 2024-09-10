@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  useParams
 } from "react-router-dom";
 import ScoreBoard from './components/ScoreBoard/ScoreBoard';
 import ScoresPage from './pages/ScoresPage';
@@ -27,13 +28,14 @@ export default function MyApp() {
   }
   
   return (
-    
-    <Router> 
+    <Router>
       <Navbar/>
       <Routes>
         <Route path="/" element={<HomePage/>}/>
         <Route path="/scores" element={<ScoresPage/>}/>
-        <Route path='/matchups' element={<MatchupPage/>}/>
+        <Route path='/matchups' element={<MatchupPage/>}>
+          <Route path=':year/:week/:match' element={<MatchupPage />} />
+        </Route>
         <Route path='/standings' element={<StandingsPage/>}/>
         <Route path='/teams' element={<TeamPage/>}/>
       </Routes>
@@ -41,10 +43,3 @@ export default function MyApp() {
   );
 }
 
-function MyButton({ count, onClick }) {
-  return (
-    <button onClick={onClick}>
-      Clicked {count} times
-    </button>
-  );
-}

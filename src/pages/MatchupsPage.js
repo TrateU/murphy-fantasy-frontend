@@ -29,7 +29,7 @@ export default function MatchupPage() {
 
   // Initialize the states based on URL params, but only once
   const [yearDropdown, setYear] = useState(year || currentYear);
-  const [weekDropdown, setWeek] = useState(week ? parseInt(week) : 1);
+  const [weekDropdown, setWeek] = useState(week ? parseInt(week) : 0);
   const [currMatch, setMatch] = useState(match ? parseInt(match) : 0);
   const [currWeek, setCurrWeek] = useState(1);
   const [weekSet, setWeekSet] = useState(false);

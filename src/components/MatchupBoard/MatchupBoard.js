@@ -32,7 +32,7 @@ export default function MatchupBoard({ year = 2024, week = 0, match = 0 }) {
     const [matchups, setMatchups] = useState(null);
     const [rosters, setRosters] = useState(null);
     const [currWeek, setCurrWeek] = useState(0)
-    const [weekSet, setWeekSet] = useState(0)
+    const [weekSet, setWeekSet] = useState(1)
     const [teamA, setTeamA] = useState(team_format);
     const [teamB, setTeamB] = useState(team_format);
 

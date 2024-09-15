@@ -23,7 +23,7 @@ const weekRanges2024 = [
 const currentYear = 2024
 
 export default function HomePage(){
-    const [currWeek, setCurrWeek] = useState(1)
+    const [currWeek, setCurrWeek] = useState(0)
 
     const setCurrentWeek = useCallback(() => {
         function isDateinRange(dateStr, startStr, endStr){

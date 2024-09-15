@@ -130,7 +130,8 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
 
   useEffect(() => {
     if(year === actualYear){
-      setCurrentWeek(); 
+      const timeId = setInterval(setCurrentWeek, 60 * 1000);
+      return () => clearInterval(timeId);
     }
   }, [year,setCurrentWeek]);
 

@@ -63,6 +63,8 @@ export default function MatchupBoard({ year = 2024, week = 0, match = 0 }) {
 
     useEffect(() => {
         setCurrentWeek();
+        const intId = setInterval(setCurrentWeek, 5 * 1000);
+        return () => clearInterval(intId);
     }, [currWeek, weekSet]);
 
     const setCurrentWeek = () => {

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import ScoreBoard from "../components/ScoreBoard/ScoreBoard";
 
 const weekRanges2024 = [
@@ -25,7 +25,7 @@ const currentYear = 2024
 export default function HomePage(){
     const [currWeek, setCurrWeek] = useState(1)
 
-    const setCurrentWeek = () => {
+    const setCurrentWeek = useCallback(() => {
         function isDateinRange(dateStr, startStr, endStr){
             function parseDate(dateStr){
                 const [y,m,d] = dateStr.split(':').map(Number);
@@ -49,10 +49,12 @@ export default function HomePage(){
             }
         }
 
-    }
+    })
     useEffect(()=>{
         setCurrentWeek()
-    })
+        const intervalId = setInterval(setCurrentWeek, 60 * 1000);
+        return () => clearInterval(intervalId);
+    },[setCurrentWeek])
 
     return(
         <div>

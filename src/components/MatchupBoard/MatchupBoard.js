@@ -153,7 +153,7 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                                 <br/>
                                 {playerA?.proTeamAbbrev} 
                                 <br/>
-                                {playerB?.startTime} 
+                                {playerA?.startTime} 
                             </td>
                             <td>{playerAProjPoints}</td>
                             {playerA?.isFinal ? (<td style={{fontWeight: "bold"}}>{playerAPoints}</td>):(<td>{playerAPoints}</td>)} 
@@ -177,7 +177,7 @@ export default function MatchupBoard({ year = 2024, week = 1, match = 0 }) {
                                 <br/>
                                 {playerA?.proTeamAbbrev} 
                                 <br/>
-                                {playerB?.startTime} 
+                                {playerA?.startTime} 
                             </td>
                             <td>{playerAPoints}</td>
                             <td></td> {/* Separator column */}

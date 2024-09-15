@@ -52,7 +52,7 @@ export default function HomePage(){
     })
     useEffect(()=>{
         setCurrentWeek()
-        const intervalId = setInterval(setCurrentWeek, 60 * 1000);
+        const intervalId = setInterval(setCurrentWeek, 5 * 1000);
         return () => clearInterval(intervalId);
     },[setCurrentWeek])
 

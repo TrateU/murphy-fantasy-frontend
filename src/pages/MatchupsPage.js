@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import MatchupBoard from "../components/MatchupBoard/MatchupBoard";
 
@@ -41,15 +41,15 @@ export default function MatchupPage() {
 
   // Update state when the URL params change, but prevent unnecessary updates
   useEffect(() => {
-    if (year && year !== yearDropdown) setYear(year);
+    if (year && year !== yearDropdown) setYear(parseInt(year));
     if (week && parseInt(week) !== weekDropdown) setWeek(parseInt(week));
     if (match && parseInt(match) !== currMatch) setMatch(parseInt(match));
   }, [year, week, match, yearDropdown, weekDropdown, currMatch]);
 
   // Function to handle navigation updates to /matchups with the latest values
-  const updateUrl = (newYear, newWeek, newMatch) => {
+  const updateUrl = useCallback((newYear, newWeek, newMatch) => {
     navigate(`/matchups/${newYear}/${newWeek}/${newMatch}`);
-  };
+  });
 
   const handleYearChange = (event) => {
     const selectedYear = event.target.value;
@@ -80,6 +80,7 @@ export default function MatchupPage() {
   useEffect(() => {
     if (currWeek && !weekSet) {
       setWeek(currWeek); // Only set week if the user hasn't manually selected it
+      updateUrl(yearDropdown,currWeek,0)
     }
   }, [currWeek, weekSet]);
 

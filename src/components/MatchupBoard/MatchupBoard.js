@@ -94,7 +94,7 @@ export default function MatchupBoard({ year = 2024, week = 0, match = 0 }) {
 
     useEffect(() => {
         fetchData();
-        const intervalId = setInterval(fetchData, 60 * 1000);
+        const intervalId = setInterval(fetchData, 5 * 1000);
         return () => clearInterval(intervalId);
     }, [fetchData]);
 

@@ -145,7 +145,7 @@ export default function ScoreBoard({ year = 2021, week = 2 }) {
 
     fetchData();
 
-    const intervalId = setInterval(fetchData, 60 * 1000);
+    const intervalId = setInterval(fetchData, 5 * 1000);
     return () => clearInterval(intervalId);
   }, [year, getScores]);
 

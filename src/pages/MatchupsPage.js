@@ -78,9 +78,8 @@ export default function MatchupPage() {
   }, [weekDropdown]);
 
   useEffect(() => {
-    if (currWeek && !weekSet) {
+    if (currWeek && !weekSet && !match) {
       setWeek(currWeek); // Only set week if the user hasn't manually selected it
-      updateUrl(yearDropdown,currWeek,0)
     }
   }, [currWeek, weekSet]);
 

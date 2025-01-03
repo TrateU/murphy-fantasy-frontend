@@ -4,16 +4,16 @@ import styled from "styled-components";
 
 export const Nav = styled.nav`
     background: #63d471;
-    background-size: 100vw;
+    background-size: 100%;
     height: 85px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    width: 100vw; /* Full viewport width */
+    align-items: stretch;
+    width: 100%;
     padding: 0; /* No padding so that the background extends fully */
     margin: 0; /* Ensure no margin is reducing the width */
     z-index: 12;
-    position: relative; /* Ensure it stays in the correct place */
+    position: flex;
 `;
 
 export const NavLink = styled(Link)`
@@ -48,7 +48,7 @@ export const NavMenu = styled.div`
     align-items: center;
     margin-right: -24px;
     @media screen and (max-width: 768px) {
-        display: none;
+        display: flex;
     }
 `;
 

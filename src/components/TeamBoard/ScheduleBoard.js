@@ -30,9 +30,6 @@ export default function ScheduleBoard({schedule = []}){
         return rows
     },[schedule])
 
-
-
-
     return(
         <table>
             <thead>

@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import StandingsTable from "../components/StandingsTable/StandingsTable";
+import { currentYear } from "../info";
 
 export default function StandingsPage() {
-    const [year, setYear] = useState(2024);
+    const [year, setYear] = useState(currentYear);
     const [fetchedData, setFetched] = useState(null);
     const [mfcArray, setMFC] = useState({ "Division": "Mary's Football Conference", "teams": [] });
     const [jfcArray, setJFC] = useState({ "Division": "Jack's Football Conference", "teams": [] });

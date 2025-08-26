@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ScoreBoard from "../components/ScoreBoard/ScoreBoard";
-import {weekRanges2024,currentYear} from "../info"
+import {weekRanges2025,currentYear} from "../info"
 
 export default function ScoresPage(){
     const [yearDropdown, setYear] = useState(currentYear)
@@ -34,7 +34,7 @@ export default function ScoresPage(){
         const day = new Date().getDate()
 
         const date = `${year}:${month}:${day}`
-        for(let week of weekRanges2024){
+        for(let week of weekRanges2025){
             if(isDateinRange(date,week['start'],week['end'])){
                 setCurrWeek(week['Week'])
                 break
@@ -64,7 +64,8 @@ export default function ScoresPage(){
                 <option value={2021}>2021</option>
                 <option value={2022}>2022</option>   
                 <option value={2023}>2023</option>   
-                <option value={2024}>2024</option>       
+                <option value={2024}>2024</option>
+                <option value={2025}>2025</option>      
             </select>
             <select value={weekDropdown} onChange={handleWeekChange}>
                 <option value={1}>Week 1</option>

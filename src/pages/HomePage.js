@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback} from "react";
 import ScoreBoard from "../components/ScoreBoard/ScoreBoard";
-import {weekRanges2024,currentYear} from "../info"
+import {weekRanges2025,currentYear} from "../info"
 
 export default function HomePage(){
     const [currWeek, setCurrWeek] = useState(0)
@@ -22,7 +22,7 @@ export default function HomePage(){
         const day = new Date().getDate()
 
         const date = `${year}:${month}:${day}`
-        for(let week of weekRanges2024){
+        for(let week of weekRanges2025){
             if(isDateinRange(date,week['start'],week['end'])){
                 setCurrWeek(week['Week'])
                 break

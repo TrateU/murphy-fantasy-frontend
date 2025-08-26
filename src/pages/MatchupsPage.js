@@ -47,7 +47,7 @@ export default function MatchupPage() {
 
   useEffect(() => {
     if (weekDropdown <= 14) {
-      setMaxMatch(9);
+      setMaxMatch(10);
     } else if (weekDropdown === 15) {
       setMaxMatch(4);
     } else if (weekDropdown === 16) {

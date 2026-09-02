@@ -28,7 +28,7 @@ const defaultData = {
   "WeeklyScores": []
 }
 
-export default function ScoreBoard({ year = 2021, week = 2 }) {
+export default function ScoreBoard({ year = 2026, week = 2 }) {
   const [rawData, setRawData] = useState(null);
   const [matchups, setMatchups] = useState([]);
   const [scores, setScores] = useState([]);

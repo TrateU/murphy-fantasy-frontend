@@ -29,7 +29,7 @@ export const weekRanges2026 = [
 
 const currentYear = 2026
 
-export default function MatchupBoard({ year = 2025, week = 0, match = 0 }) {
+export default function MatchupBoard({ year = 2026, week = 0, match = 0 }) {
     const [matchups, setMatchups] = useState(null);
     const [rosters, setRosters] = useState(null);
     const [currWeek, setCurrWeek] = useState(0)

@@ -7,27 +7,27 @@ const team_format = {
     "Roster": []
 };
 
-export const weekRanges2025 = [
-    {"Week": 1, "start":"2025:8:3", "end":"2025:8:9"},
-    {"Week": 2, "start":"2025:8:10", "end":"2025:8:16"},
-    {"Week": 3, "start":"2025:8:17", "end":"2025:8:23"},
-    {"Week": 4, "start":"2025:8:24", "end":"2025:8:30"},
-    {"Week": 5, "start":"2025:9:1", "end":"2025:9:7"},
-    {"Week": 6, "start":"2025:9:8", "end":"2025:9:14"},
-    {"Week": 7, "start":"2025:9:15", "end":"2025:9:21"},
-    {"Week": 8, "start":"2025:9:22", "end":"2025:9:28"},
-    {"Week": 9, "start":"2025:9:29", "end":"2025:10:4"},
-    {"Week": 10, "start":"2025:10:5", "end":"2025:10:11"},
-    {"Week": 11, "start":"2025:10:12", "end":"2025:10:18"},
-    {"Week": 12, "start":"2025:10:19", "end":"2025:10:25"},
-    {"Week": 13, "start":"2025:10:26", "end":"2025:11:2"},
-    {"Week": 14, "start":"2025:11:3", "end":"2025:11:9"},
-    {"Week": 15, "start":"2025:11:10", "end":"2025:11:16"},
-    {"Week": 16, "start":"2025:11:17", "end":"2025:11:23"},
-    {"Week": 17, "start":"2025:11:24", "end":"2025:11:30"}
+export const weekRanges2026 = [
+    {"Week": 1, "start":"2026:8:9", "end":"2026:8:15"},
+    {"Week": 2, "start":"2026:8:16", "end":"2026:8:22"},
+    {"Week": 3, "start":"2026:8:23", "end":"2026:8:29"},
+    {"Week": 4, "start":"2026:8:30", "end":"2026:9:6"},
+    {"Week": 5, "start":"2026:9:7", "end":"2026:9:13"},
+    {"Week": 6, "start":"2026:9:14", "end":"2026:9:20"},
+    {"Week": 7, "start":"2026:9:21", "end":"2026:9:27"},
+    {"Week": 8, "start":"2026:9:28", "end":"2026:10:3"},
+    {"Week": 9, "start":"2026:10:4", "end":"2026:10:10"},
+    {"Week": 10, "start":"2026:10:11", "end":"2026:10:17"},
+    {"Week": 11, "start":"2026:10:18", "end":"2026:10:24"},
+    {"Week": 12, "start":"2026:10:25", "end":"2026:11:1"},
+    {"Week": 13, "start":"2026:11:2", "end":"2026:11:8"},
+    {"Week": 14, "start":"2026:11:9", "end":"2026:11:15"},
+    {"Week": 15, "start":"2026:11:16", "end":"2026:11:22"},
+    {"Week": 16, "start":"2026:11:23", "end":"2026:11:29"},
+    {"Week": 17, "start":"2026:11:30", "end":"2027:0:5"}
 ]
 
-const currentYear = 2025
+const currentYear = 2026
 
 export default function MatchupBoard({ year = 2025, week = 0, match = 0 }) {
     const [matchups, setMatchups] = useState(null);
@@ -85,7 +85,7 @@ export default function MatchupBoard({ year = 2025, week = 0, match = 0 }) {
         const day = new Date().getDate();
 
         const date = `${year}:${month}:${day}`;
-        for (let week of weekRanges2025) {
+        for (let week of weekRanges2026) {
             if (isDateinRange(date, week['start'], week['end'])) {
                 setCurrWeek(week['Week']);
                 break;

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import MatchupBoard from "../components/MatchupBoard/MatchupBoard";
-import {weekRanges2025,currentYear} from "../info"
+import {weekRanges2026,currentYear} from "../info"
 
 export default function MatchupPage() {
   const { year, week, match } = useParams();
@@ -71,7 +71,7 @@ export default function MatchupPage() {
 
     const currentDate = `${year}:${month}:${day}`;
 
-    for (let week of weekRanges2025) {
+    for (let week of weekRanges2026) {
       const { start, end } = week;
       if (isDateInRange(currentDate, start, end)) {
         setCurrWeek(week.Week);
@@ -122,7 +122,7 @@ export default function MatchupPage() {
       </select>
 
       <select value={weekDropdown} onChange={handleWeekChange}>
-        {weekRanges2025.map((week, index) => (
+        {weekRanges2026.map((week, index) => (
           <option key={index} value={week.Week}>
             {week.Week <= 14 ? `Week ${week.Week}` : `Playoffs Week ${week.Week - 14}`}
           </option>
